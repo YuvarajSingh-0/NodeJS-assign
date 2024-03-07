@@ -24,6 +24,7 @@ router.post('/register', async (req, res) => {
 // User Login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log(username, password);
     const user = await User.findOne({ username });
     if (!user) return res.status(400).send({ message: 'Invalid username or password' });
     const validPassword = await bcrypt.compare(password, user.password);
@@ -45,10 +46,14 @@ router.post('/forgot-password', async (req, res) => {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: "help@company.com", 
-            pass: process.env.PASSWORD,
+            type: 'OAuth2',
+            user: 'yuvarajsingh170@gmail.com', // replace with your email
+            clientId: process.env.CLIENT_ID, // replace with your client ID
+            clientSecret: process.env.CLIENT_SECRET, // replace with your client secret
+            refreshToken: process.env.REFRESH_TOKEN, // replace with your refresh token
         },
     });
+
 
     // Send an email with the password reset link
     let info = await transporter.sendMail({
@@ -63,9 +68,10 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 // Reset Password
-router.post('/forgot-password/:token', async (req, res) => {
+router.post('/reset-password/:token', async (req, res) => {
     const { newPassword } = req.body;
     const token = req.params.token;
+    console.log(token, newPassword)
     const decoded = jwt.verify(token, process.env.SECRET_KEY); // Replace 'secret_key
     if (!decoded) return res.status(400).send({ message: 'Invalid or expired token' });
     const hashedPassword = await bcrypt.hash(newPassword, 10);
