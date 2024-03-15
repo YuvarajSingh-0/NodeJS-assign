@@ -15,6 +15,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Routes
+app.get('/', (req, res) => {
+    res.send('Welcome to the Express.js and MongoDB social media API');
+});
+
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 
