@@ -14,7 +14,7 @@ This is a simple Express.js API for user authentication. It includes routes for 
 
 The user schema is as usual but the post schema has a `parentId` which refers to the another postId which means its a comment and not the main post. This is used for Better DataBase Utilization.
 
-![](https://github.com/YuvarajSingh-0/NodeJS-assign/blob/master/models/ER-model.svg)
+![](https://raw.githubusercontent.com/YuvarajSingh-0/NodeJS-assign/ed175af0303d9bb0846ea9c74febeceaf6f69f80/models/ER-Model.svg)
 
 ## Routes
 
