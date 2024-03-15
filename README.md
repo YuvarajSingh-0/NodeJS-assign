@@ -20,7 +20,7 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### User Registration
 
-- **Endpoint:** `/register`
+- **Endpoint:** `/api/users/register`
 - **Method:** `POST`
 - **Description:** Registers a new user by saving their username, email, and hashed password to the database.
 - **Body Parameters:**
@@ -30,7 +30,7 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### User Login
 
-- **Endpoint:** `/login`
+- **Endpoint:** `/api/users/login`
 - **Method:** `POST`
 - **Description:** Logs in a user by checking if the username exists in the database and if the password is valid. If successful, a JWT token is signed and sent as a cookie.
 - **Body Parameters:**
@@ -39,7 +39,7 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Forgot Password
 
-- **Endpoint:** `/forgot-password`
+- **Endpoint:** `/api/users/forgot-password`
 - **Method:** `POST`
 - **Description:** Generates a password reset token and sends it to the user's email. This is a simple implementation. In a real-world application, you would want to send a password reset link to the user's email.
 - **Body Parameters:**
@@ -55,13 +55,13 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Get Posts
 
-- **Endpoint:** `/`
+- **Endpoint:** `/posts`
 - **Method:** `GET`
 - **Description:** Fetches a paginated list of posts that have no parent post (i.e., top-level posts). The page number and limit can be specified as query parameters.
 
 ### Create Post
 
-- **Endpoint:** `/`
+- **Endpoint:** `/posts`
 - **Method:** `POST`
 - **Description:** Creates a new post with the content passed in the request body. The author of the post is the currently authenticated user.
 - **Body Parameters:**
@@ -69,7 +69,7 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Update Post
 
-- **Endpoint:** `/:id`
+- **Endpoint:** `/posts/:id`
 - **Method:** `PUT`
 - **Description:** Updates the post with the given ID. The content of the post can be updated by passing it in the request body. The author of the post must be the currently authenticated user.
 - **Body Parameters:**
@@ -77,13 +77,13 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Get Post
 
-- **Endpoint:** `/:id`
+- **Endpoint:** `/posts/:id`
 - **Method:** `GET`
 - **Description:** Fetches the post with the given ID.
 
 ### Post Comment
 
-- **Endpoint:** `/comment`
+- **Endpoint:** `/posts/comment`
 - **Method:** `POST`
 - **Description:** Posts a comment on the post with the given ID. The content of the comment and the ID of the post are passed in the request body. The author of the comment is the currently authenticated user.
 - **Body Parameters:**
@@ -92,13 +92,13 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Get Comments
 
-- **Endpoint:** `/:id/comments`
+- **Endpoint:** `/posts/:id/comments`
 - **Method:** `GET`
 - **Description:** Fetches a paginated list of comments on the post with the given ID. The page number and limit can be specified as query parameters.
 
 ### Like Post
 
-- **Endpoint:** `/like`
+- **Endpoint:** `posts/like`
 - **Method:** `POST`
 - **Description:** Likes the post with the given ID. The ID of the post is passed in the request body. The user who likes the post is the currently authenticated user.
 - **Body Parameters:**
@@ -106,7 +106,7 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Unlike Post
 
-- **Endpoint:** `/unlike`
+- **Endpoint:** `posts/unlike`
 - **Method:** `POST`
 - **Description:** Unlikes the post with the given ID. The ID of the post is passed in the request body. The user who unlikes the post is the currently authenticated user.
 - **Body Parameters:**
@@ -114,7 +114,7 @@ The user schema is as usual but the post schema has a `parentId` which refers to
 
 ### Delete Post
 
-- **Endpoint:** `/:id`
+- **Endpoint:** `posts/:id`
 - **Method:** `DELETE`
 - **Description:** Deletes the post with the given ID. The author of the post must be the currently authenticated user.
 
