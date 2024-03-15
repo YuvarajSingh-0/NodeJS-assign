@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/userRoutes'); // Assuming your routes are in a file named userRoutes.js
+const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./routes/postRoutes');
 const connectDB = require('./db');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -10,9 +12,11 @@ connectDB();
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
 
 // Start the server
 const port = process.env.PORT || 3000;

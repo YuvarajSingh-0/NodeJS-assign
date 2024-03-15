@@ -24,13 +24,27 @@ router.post('/register', async (req, res) => {
 // User Login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password);
     const user = await User.findOne({ username });
     if (!user) return res.status(400).send({ message: 'Invalid username or password' });
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(400).send({ message: 'Invalid username or password' });
-    const token = jwt.sign({ username: user.username }, process.env.SECRET_KEY); // Replace 'secret_key' with your secret key
-    res.send({ message: 'Logged in successfully', token });
+    
+    const payload = {
+        user: {
+            _id: user._id
+        }
+    };
+
+    jwt.sign(
+        payload,
+        process.env.SECRET_KEY, // Replace 'secret_key' with your secret key
+        { expiresIn: '1h' },
+        (err, token) => {
+            if (err) throw err;
+            res.cookie('token', token, { httpOnly: true });
+            res.json({ msg: 'Logged in successfully', _id: user._id });
+        } 
+    );
 });
 
 // Forgot Password - This is a simple implementation. In a real-world application, you would want to send a password reset link to the user's email.
